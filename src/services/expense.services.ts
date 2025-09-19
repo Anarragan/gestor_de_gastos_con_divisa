@@ -1,5 +1,9 @@
 import { convertCurrency } from "../API/currencyApi.js";
 import type Expense from "../models/expense.js";
+import crypto from 'crypto';
+import { Transform } from "stream";
+
+type NewExpenseInput = Omit<Expense, 'id'>;
 
 // In-memory storage for expenses
 const expenses: Expense[] = [];
@@ -10,7 +14,7 @@ export const addExpense = async ({
     amount,
     currency,
     category
-}: Expense) => {
+}: NewExpenseInput) => {
     const newExpense: Expense = {
         id: crypto.randomUUID(),
         description,
@@ -22,32 +26,43 @@ export const addExpense = async ({
     return newExpense;
 };
 
-// Function to get all expenses, optionally converting to a target currency
-export const getExpenses = async (targetCurrency?: string) => {
-    if (!targetCurrency) {
-        return expenses;
-    }
+export function getAllExpenses(): { transform: Transform} {
+    let leftover = '';
+    const transform = new Transform({
+        readableObjectMode: true,
+        writableObjectMode: false,
+        transform(chunk, _encoding, callback) {
+            const data = leftover + chunk.toString();
+            const lines = data.split('\n');
+            leftover = lines.pop() || '';
 
-    const convertedExpenses = await Promise.all(
-        expenses.map(async (expense) => {
-            if (expense.currency === targetCurrency) {
-                return expense;
+            for (const line of lines) {
+                if (line.trim()) {
+                    try {
+                        const expense: Expense = JSON.parse(line);
+                        this.push(expense);
+                    } catch (error) {
+                        console.error('Error parsing line:', line, error);
+                    }
+                }
             }
-            const convertedAmount = await convertCurrency(
-                expense.currency,
-                targetCurrency,
-                expense.amount
-            );
-            return {
-                ...expense,
-                amount: convertedAmount,
-                currency: targetCurrency
-            };
-        })
-    );
+            callback();
+        },
+        flush(callback) {
+            if (leftover.trim()) {
+                try {
+                    const expense: Expense = JSON.parse(leftover);
+                    this.push(expense);
+                } catch (error) {
+                    console.error('Error parsing leftover:', leftover, error);
+                }
+            }
+            callback();
+        }
+    });
 
-    return convertedExpenses;
-};
+    return { transform };
+}
 
 export const updateExpense = async (id:string, updateExpense: Partial<Expense>) => {
     const index = expenses.findIndex(expense => expense.id === id);
