@@ -1,32 +1,35 @@
-import { convertCurrency } from "../API/currencyApi.js";
 import type Expense from "../models/expense.js";
 import crypto from 'crypto';
 import { Transform } from "stream";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 type NewExpenseInput = Omit<Expense, 'id'>;
 
-// In-memory storage for expenses
-const expenses: Expense[] = [];
+const EXPENSES_FILE = path.join(__dirname, 'expenses.jsonl');
 
-// Function to add a new expense
-export const addExpense = async ({
-    description,
-    amount,
-    currency,
-    category
-}: NewExpenseInput) => {
+export async function addExpenseService(expenseData: NewExpenseInput): Promise<Expense> {
     const newExpense: Expense = {
         id: crypto.randomUUID(),
-        description,
-        amount,
-        currency,
-        category
+        ...expenseData
     };
-    expenses.push(newExpense);
-    return newExpense;
-};
 
-export function getAllExpenses(): { transform: Transform} {
+    return new Promise((resolve, reject) => {
+        const line = JSON.stringify(newExpense) + '\n';
+        fs.appendFile(EXPENSES_FILE, line, (err) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(newExpense);
+        });
+    });
+}
+
+export function getAllExpenses(): { transform: Transform } {
     let leftover = '';
     const transform = new Transform({
         readableObjectMode: true,
@@ -61,13 +64,8 @@ export function getAllExpenses(): { transform: Transform} {
         }
     });
 
+    const readStream = fs.createReadStream(EXPENSES_FILE, { encoding: 'utf8' });
+    readStream.pipe(transform);
+
     return { transform };
-}
-
-export const updateExpense = async (id:string, updateExpense: Partial<Expense>) => {
-    const index = expenses.findIndex(expense => expense.id === id);
-    if (index === -1){
-        throw new Error('Expense not found unu')
-    }
-
 }

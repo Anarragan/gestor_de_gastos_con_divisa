@@ -1,7 +1,6 @@
 import type { Request, Response } from 'express';
-import { addExpense, getAllExpenses, updateExpense } from '../services/expense.services.js';
-
-
+import { addExpenseService, getAllExpenses } from '../services/expense.services.js';
+import { convertCurrency } from '../API/currencyApi.js';
 
 export const createExpense = async (req: Request, res: Response) => {
     try {
@@ -11,7 +10,7 @@ export const createExpense = async (req: Request, res: Response) => {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
-        const newExpense = await addExpense({ description, amount, currency, category });
+        const newExpense = await addExpenseService({ description, amount, currency, category });
         res.status(201).json(newExpense);
     } catch (error) {
         console.error('Error creating expense:', error);
@@ -23,10 +22,8 @@ export const getExpenses = async (req: Request, res: Response) => {
     const { currency } = req.query;
     try {
         const { transform } = getAllExpenses();
-        res.setHeader('Content-Type', 'application/json');
-        res.write('[');
-        let isFirst = true;
-
+        const expenses: any[] = [];
+        
         transform.on('data', async (expense) => {
             if (currency && expense.currency !== currency) {
                 try {
@@ -37,17 +34,11 @@ export const getExpenses = async (req: Request, res: Response) => {
                     console.error('Error converting currency for expense:', expense, error);
                 }
             }
-            if (!isFirst) {
-                res.write(',');
-            } else {
-                isFirst = false;
-            }
-            res.write(JSON.stringify(expense));
+            expenses.push(expense);
         });
 
         transform.on('finish', () => {
-            res.write(']');
-            res.end();
+            res.json(expenses);
         });
 
         transform.on('error', (error) => {
@@ -61,3 +52,4 @@ export const getExpenses = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Internal server error' });
     }   
 }
+
