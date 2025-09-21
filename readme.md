@@ -41,20 +41,43 @@ Además, incluye un **sistema de reportes automáticos** vía email, generados c
 
 ```
 /backend
-    /controllers
-    /routes
-    /services
-    /middlewares
-    /jobs
-    /models
-    /streams
-    index.ts
-/frontend
     /src
-        api.js
-        main.js
-        style.css
-        index.html
+        /-controllers
+            |--expense.controller.ts
+        /-files
+            |--expenses.jsonl
+            |--request.jsonl
+        /-jobs
+            |--report.job.ts
+        /-middlewares
+            |--requestLogger.ts
+            |--validateExpense.ts
+        /-models
+            |--expense.ts
+            |--reports.ts
+        /-routes
+            |--currency.ts
+            |--expenses.ts
+            |--index.ts
+        /-services
+            |--api.service.ts
+            |--expense.service.ts
+            |--report.service.ts
+        /-streams
+            |--ExpensStream.ts
+        |--app.ts
+        |--server.ts
+    |--package-lock-json
+    |--package.json
+    |--tsconfig.json
+/frontend
+    /-src
+        |--api.js
+        |--main.js
+        |--style.css
+    |--package-lock.json
+    |--package.json
+
 ```
 
 ---
@@ -87,7 +110,7 @@ VITE_API_URL=http://localhost:3000
 
 ---
 
-## ▶️ Instrucciones para correr el proyecto
+## ▶ Instrucciones para correr el proyecto
 
 1. **Clonar el repositorio**
      ```bash
@@ -123,7 +146,7 @@ VITE_API_URL=http://localhost:3000
 
 ---
 
-## 📧 Reportes automáticos
+##  Reportes automáticos
 
 Los reportes se programan con cron jobs en el backend (`/jobs/report.job.ts`).
 

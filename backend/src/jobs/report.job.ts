@@ -154,7 +154,7 @@ function buildReportHtml(report: any): string {
 }
 
 export function scheduleWeeklyReport() {
-    const cronExpr = process.env.REPORT_CRON || '*/30 * * * *'; // por defecto, cada 5 minutos
+    const cronExpr = process.env.REPORT_CRON || '0 8 * * 1'; 
     const tz = process.env.REPORT_TIMEZONE || 'America/Bogota';
 
     console.log(`Scheduling weekly report with cron: "${cronExpr}" and timezone: "${tz}"`);
