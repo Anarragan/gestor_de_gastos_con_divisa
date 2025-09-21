@@ -1,4 +1,4 @@
-# 📊 Gestor de Gastos con Conversión de Divisas
+#  Gestor de Gastos con Conversión de Divisas
 
 Aplicación fullstack (Node.js + Vite) para la **gestión de gastos personales**.  
 Permite registrar gastos, listarlos, eliminarlos y convertirlos a diferentes monedas usando una **API externa de divisas**.  
@@ -6,7 +6,7 @@ Además, incluye un **sistema de reportes automáticos** vía email, generados c
 
 ---
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
 - **Gestión de gastos**:
     - Listar todos los gastos registrados.
@@ -28,7 +28,7 @@ Además, incluye un **sistema de reportes automáticos** vía email, generados c
 
 ---
 
-## 🛠️ Tecnologías usadas
+##  Tecnologías usadas
 
 - **Backend**: Node.js, Express, TypeScript, Nodemailer, Node-cron, Axios  
 - **Frontend**: Vite, HTML, CSS, JavaScript  
@@ -37,7 +37,7 @@ Además, incluye un **sistema de reportes automáticos** vía email, generados c
 
 ---
 
-## 📂 Estructura del proyecto
+##  Estructura del proyecto
 
 ```
 /backend
@@ -82,9 +82,9 @@ Además, incluye un **sistema de reportes automáticos** vía email, generados c
 
 ---
 
-## ⚙️ Variables de entorno
+##  Variables de entorno
 
-### 🔹 Backend (`.env` en la carpeta `/backend`)
+###  Backend (`.env` en la carpeta `/backend`)
 
 ```env
 # Puerto del servidor
@@ -110,7 +110,7 @@ VITE_API_URL=http://localhost:3000
 
 ---
 
-## ▶ Instrucciones para correr el proyecto
+##  Instrucciones para correr el proyecto
 
 1. **Clonar el repositorio**
      ```bash
