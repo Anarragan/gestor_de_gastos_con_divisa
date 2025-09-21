@@ -1,4 +1,3 @@
-{"id":"2","description":"Monthly subscription","amount":10,"currency":"USD","category":"Utilities","date":"2023-10-02"}
 {"id":"4","description":"Bus ticket","amount":2.5,"currency":"USD","category":"Transport","date":"2023-10-04"}
 {"id":"5","description":"New shoes","amount":120,"currency":"USD","category":"Clothing","date":"2023-10-05"}
 {"id":"6","description":"Gym membership","amount":30,"currency":"USD","category":"Health","date":"2023-10-06"}
@@ -21,4 +20,5 @@
 {"id":"58baa80a-2581-4e8d-b137-18d9a07ecf9d","description":"Trago","amount":50,"currency":"COP","category":"Entretainment","date":"2025-09-21T16:58:03.651Z"}
 {"id":"a9e00f24-1952-4616-9784-17a2cce5f4e7","description":"Trago","amount":50000,"currency":"COP","category":"Entretainment","date":"2025-09-21T16:59:36.951Z"}
 {"id":"de53f99f-f19d-41c3-8057-f059166c0c4f","description":"pollo","amount":2000,"currency":"COP","category":"sapo","date":"2025-09-21T17:17:34.810Z"}
-{"id":"e8b6308d-80a8-43ae-a7e3-ced27f4ec433","description":"otro","amount":200000,"currency":"COP","category":"personas","date":"2025-09-21T19:04:50.599Z"}
+{"id":"155efaa8-8dcd-4af4-ba77-942b479754e4","description":"niño","amount":12,"currency":"USD","category":"personas","date":"2025-09-21T19:18:03.731Z"}
+{"id":"dd938174-316a-487c-9a8d-51ae79dbfc4c","description":"Lunch","amount":12000,"currency":"COP","category":"food","date":"2025-09-21T19:58:01.326Z"}

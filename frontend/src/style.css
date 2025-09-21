@@ -1,34 +1,215 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+  background: #eef2f7;
+  color: #333;
+  padding: 20px;
 }
 
-section {
-  margin-bottom: 20px;
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 2rem;
 }
 
-form input {
-  margin: 5px;
-  padding: 5px;
+/* Contenedor principal */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 350px 1fr; /* izquierda | centro | derecha */
+  gap: 30px;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
-button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  cursor: pointer;
+/* Secciones */
+.dashboard-left,
+.dashboard-center,
+.dashboard-right {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-ul {
+.dashboard-left:hover,
+.dashboard-center:hover,
+.dashboard-right:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 16px rgba(0,0,0,0.15);
+}
+
+.dashboard-left {
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.dashboard-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Lista de gastos */
+#expenses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   list-style: none;
   padding: 0;
 }
 
-li {
-  margin: 8px 0;
-  padding: 8px;
+/* Cada gasto como tarjeta */
+.expense-card {
+  background: linear-gradient(135deg, #f9fbfc, #f0f4f8);
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 12px;
+  padding: 15px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.expense-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+}
+
+/* Atributos */
+.expense-attribute {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.expense-attribute strong {
+  color: #2c3e50;
+}
+
+/* Botón eliminar */
+.expense-card button {
+  align-self: flex-end;
+  margin-top: 6px;
+  background: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.expense-card button:hover {
+  background: #e60000;
+  transform: scale(1.05);
+}
+
+/* Formulario */
+#expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+#expense-form input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  width: 100%;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+#expense-form input:focus {
+  border-color: #4cafef;
+  box-shadow: 0 0 6px rgba(76, 175, 239, 0.4);
+  outline: none;
+}
+
+#expense-form button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+#expense-form button:hover {
+  background: #388e3c;
+  transform: translateY(-2px);
+}
+
+/* Panel derecho */
+.dashboard-right h2 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+#rates-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+#rates-list li {
+  background: #f4f6f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+#convert-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#convert-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.2s ease;
+}
+
+#convert-form input:focus {
+  border-color: #4cafef;
+  outline: none;
+}
+
+#convert-form button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+#convert-form button:hover {
+  background: #217dbb;
+  transform: scale(1.03);
+}
+
+#convert-result {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #2c3e50;
 }

@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import { addExpenseService, deleteExpenseService, getAllExpenses } from '../services/expense.services.js';
 import { convertCurrency } from '../services/api.service.js';
+import axios from 'axios';
 
 export const createExpense = async (req: Request, res: Response) => {
     try {
@@ -65,6 +66,27 @@ export const getExpenses = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Internal server error' });
     }   
 }
+
+export const getRates = async (req: Request, res: Response) => {
+  try {
+    const { base = "USD", symbols = "COP,MXN,EUR,JPY,BRL" } = req.query;
+
+    const response = await axios.get(`${process.env.API_URL}${base}`);
+    const rates = response.data.rates;
+
+    const filtered: Record<string, number> = {};
+    (symbols as string).split(",").forEach(symbol => {
+      if (rates[symbol]) {
+        filtered[symbol] = rates[symbol];
+      }
+    });
+
+    res.json({ base, rates: filtered });
+  } catch (error) {
+    console.error("Error obteniendo tasas:", error);
+    res.status(500).json({ error: "Error obteniendo tasas" });
+  }
+};
 
 export const convertExpense = async (req: Request, res: Response) => {
   try {

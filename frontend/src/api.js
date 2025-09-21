@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000"; // tu backend Express
+const API_URL = "http://localhost:3000"; 
 
 export async function getExpenses() {
   const res = await fetch(`${API_URL}/expenses`);

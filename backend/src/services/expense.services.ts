@@ -35,7 +35,7 @@ export function getAllExpenses() {
 
 export async function deleteExpenseService(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-        // Primero leemos todos los gastos
+        // Read data fromm thee file 
         const expenses: Expense[] = [];
         const readStream = fs.createReadStream(EXPENSES_FILE, { encoding: 'utf8' });
         
@@ -45,7 +45,7 @@ export async function deleteExpenseService(id: string): Promise<boolean> {
         });
         
         readStream.on('end', () => {
-            // Parsear cada línea del JSONL
+            // Each line of the JSONL
             const lines = data.trim().split('\n').filter(line => line.trim());
             let expenseFound = false;
             
@@ -63,10 +63,10 @@ export async function deleteExpenseService(id: string): Promise<boolean> {
             });
             
             if (!expenseFound) {
-                return resolve(false); // No se encontró el gasto
+                return resolve(false);
             }
             
-            // Reescribir el archivo sin el gasto eliminado
+            // Rewrite the file without the deleted expense
             const newContent = expenses.map(expense => JSON.stringify(expense)).join('\n') + '\n';
             
             fs.writeFile(EXPENSES_FILE, newContent, (err) => {
