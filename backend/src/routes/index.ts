@@ -17,7 +17,7 @@ export async function initRoutes() {
     for (const file of readdirSync(PATH_ROUTER)) {
         const cleanName = cleanFileName(file)
         if (cleanName !== 'index') {
-            const route = await import(`./${cleanName}`)
+            const route = await import(`./${cleanName}.js`)
             router.use(`/${cleanName}`, route.router)
         }
     }

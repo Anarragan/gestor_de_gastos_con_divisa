@@ -4,4 +4,5 @@ export default interface Expense {
   amount: number;
   currency: string;
   category: string;
+  date: string;
 }

@@ -1,25 +1,30 @@
 {
   "name": "gestor_de_gastos_con_divisa",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Gestor de gastos con integración de divisas",
+  "main": "dist/server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --loader ts-node/esm ./src/server.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node ./dist/server.js"
+    "start": "node ./dist/server.js",
+    "lint": "tsc --noEmit",
+    "clean": "rimraf dist"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Anarragan/gestor_de_gastos_con_divisa.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "node",
+    "typescript",
+    "express",
+    "api",
+    "gastos",
+    "divisas"
+  ],
+  "author": "Ana Barragán",
   "license": "ISC",
-  "type": "module",
-  "ts-node": {
-    "esm": true
-  },
   "bugs": {
     "url": "https://github.com/Anarragan/gestor_de_gastos_con_divisa/issues"
   },
@@ -29,8 +34,13 @@
     "@types/express": "^5.0.3",
     "@types/multer": "^2.0.0",
     "@types/node": "^24.5.2",
+    "@types/nodemailer": "^7.0.1",
+    "nodemon": "^3.1.10",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "axios": "^1.12.2",
@@ -38,7 +48,7 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "multer": "^2.0.2",
-    "nodemailer": "^7.0.6",
-    "nodemon": "^3.1.10"
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.6"
   }
 }

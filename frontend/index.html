@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestor de Gastos</title>
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+  <h1>Gestor de Gastos</h1>
+
+  <!-- Formulario -->
+  <section>
+    <h2>Agregar Gasto</h2>
+    <form id="expense-form">
+      <input type="text" id="description" placeholder="Descripción" required />
+      <input type="number" id="amount" placeholder="Monto" required />
+      <input type="text" id="currency" placeholder="Moneda (COP, USD)" required />
+      <input type="text" id="category" placeholder="Categoría" required />
+      <button type="submit">Agregar</button>
+    </form>
+  </section>
+
+  <!-- Lista -->
+  <section>
+    <h2>Lista de Gastos</h2>
+    <ul id="expenses-list"></ul>
+  </section>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
